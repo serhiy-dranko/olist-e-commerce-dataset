@@ -41,6 +41,7 @@ category_totals AS (
 state_totals AS (
     SELECT
         c.customer_state AS state,
+        s."State Name" AS state_full_name, -- Full Name of State in English
         SUM(oi.price) + SUM(oi.freight_value) AS total_val,
         RANK() OVER (ORDER BY SUM(oi.price) + SUM(oi.freight_value) DESC) AS state_rank
     FROM olist_order_items_dataset oi
@@ -48,7 +49,9 @@ state_totals AS (
         ON oi.order_id = o.order_id
     LEFT JOIN olist_customers_dataset c
         ON o.customer_id = c.customer_id
-    GROUP BY c.customer_state
+    LEFT JOIN state_name_translation s  -- join Full Name of State in English
+        ON c.customer_state = s.Abbreviation
+    GROUP BY state,state_full_name
  )
   
 SELECT
@@ -65,7 +68,7 @@ SELECT
     oi.seller_id,
     oi.price,
     oi.freight_value,
-    CASE WHEN st.state_rank <= 10 THEN c.customer_state ELSE 'Other' END AS state_grouped,-- For Top 10 State pie chart
+    CASE WHEN st.state_rank <= 10 THEN st.state_full_name ELSE 'Other' END AS state_grouped,-- For Top 10 State pie chart
     c.customer_state,
     c.customer_city,
     p.product_category_name,
