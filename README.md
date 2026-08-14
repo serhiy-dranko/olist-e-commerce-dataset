@@ -76,6 +76,7 @@ Each business question is backed by a specific, minimal set of source tables and
 - **Slower delivery → lower reviews.** Average review score falls from 4.33 (0–7 day delivery) to 1.80 for undelivered orders — a clear, near-linear relationship.
 - **São Paulo dominates, but the tail matters.** São Paulo alone drives 37% of revenue; the next 10 states combined still contribute the majority of the remainder.
 
+[Olis_dashboard]([https://github.com](http://github.com/serhiy-dranko/olist-e-commerce-dataset/blob/main/dashboard/screenshot/Olis%20dashboard.png))
 
 ## Tech Stack
 
